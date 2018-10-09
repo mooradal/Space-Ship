@@ -70,7 +70,7 @@ spr_advance_bot.src = "Sprites/advance_bot.png";
 spr_shop.src = "Sprites/shop.png";
 
 var bulletObj = {x:0,y:0,BSspd:10}
-var mainObj = {x:386,y:450,PSspd:8,PSmny:0,PShlth:999999,PSospd:8,size:64};
+var mainObj = {x:386,y:450,PSspd:9999999,PSmny:0,PShlth:999999,PSospd:8,size:64};
 var astroid = {x:200,y:200,ASspd:5,spawnRate:1};
 var bot_obj = {x:mainObj.x,y:540,BtSspd:10,size:64};
 var divisionObj = {x:mainObj.x,y:mainObj.y,spd:mainObj.PSspd};
@@ -90,7 +90,7 @@ var BGY = -100;
 var shoot = false;
 var isbot = false;
 var ghost = false;
-var bought = [false, false, false, false, false, false, false, false, false,false,false,false];
+var bought = [true, true, true, true, true, true, true, true, true,true,true,true];
 var current_colour = [1, 0, 0, 0, 0, 0];
 var bshooting = true;
 var division1 = false;
