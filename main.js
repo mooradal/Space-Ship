@@ -68,7 +68,7 @@ purple_skin.src = "Sprites/purple_skin.png";
 spr_shop.src = "Sprites/shop.png";
 
 var bulletObj = {x:0,y:0,BSspd:10}
-var mainObj = {x:386,y:450,PSspd:8,PSmny:9999,PShlth:8,PSospd:8,size:64};
+var mainObj = {x:386,y:450,PSspd:8,PSmny:0,PShlth:8,PSospd:8,size:64};
 var astroid = {x:200,y:200,ASspd:5,spawnRate:1};
 var bot_obj = {x:mainObj.x,y:540,BtSspd:17,size:64};
 var divisionObj = {x:mainObj.x,y:mainObj.y,spd:mainObj.PSspd};
