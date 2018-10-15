@@ -34,7 +34,6 @@ var spr_shop_division = new Image();
 var spr_ship_division = new Image();
 var spr_division_bullet = new Image();
 var purple_skin = new Image();
-var spr_advance_bot = new Image();
 var spr_shop = new Image();
 
 // Sourcing Sprite Variables
@@ -46,7 +45,7 @@ blue_skin.src = "Sprites/blue_skin.png";
 green_skin.src = "Sprites/green_skin.png";
 gold_skin.src = "Sprites/gold_skin.png";
 steel_skin.src = "Sprites/steel_skin.png";
-spr_bot_bullet.src = "Sprites/bot_bullet.png";
+spr_bot_bullet.src = "Sprites/bullet_3.png";
 spr_bot.src = "Sprites/bot.png";
 spr_ghost.src = "Sprites/ghost.png";
 spr_shop_bot.src = "Sprites/shop_bot.png";
@@ -66,13 +65,12 @@ spr_shop_division.src = "Sprites/shop_division.png";
 spr_ship_division.src = "Sprites/ship_division.png";
 spr_division_bullet.src = "Sprites/bullet_4.png";
 purple_skin.src = "Sprites/purple_skin.png";
-spr_advance_bot.src = "Sprites/advance_bot.png";
 spr_shop.src = "Sprites/shop.png";
 
 var bulletObj = {x:0,y:0,BSspd:10}
-var mainObj = {x:386,y:450,PSspd:8,PSmny:99999,PShlth:8,PSospd:8,size:64};
+var mainObj = {x:386,y:450,PSspd:8,PSmny:9999,PShlth:8,PSospd:8,size:64};
 var astroid = {x:200,y:200,ASspd:5,spawnRate:1};
-var bot_obj = {x:mainObj.x,y:540,BtSspd:10,size:64};
+var bot_obj = {x:mainObj.x,y:540,BtSspd:17,size:64};
 var divisionObj = {x:mainObj.x,y:mainObj.y,spd:mainObj.PSspd};
 var right, left, up, down, shift = false;
 var astroidArray = [];
@@ -90,7 +88,7 @@ var BGY = -100;
 var shoot = false;
 var isbot = false;
 var ghost = false;
-var bought = [false, false, false, false, false, false, false, false, false,false,false,false];
+var bought = [false, false, false, false, false, false, false, false, false];
 var current_colour = [1, 0, 0, 0, 0, 0];
 var bshooting = true;
 var division1 = false;
@@ -100,7 +98,6 @@ var Mmy = 0;
 var opacity = 0;
 
 function mouse_movement(evnt) {
-
     Mmx = evnt.clientX;
     Mmy = evnt.clientY;
 }
@@ -158,17 +155,16 @@ function mainLoop(time) {
 
 
         if (division1 == true) {
-            c.drawImage(spr_ship_division,divisionObj.x,divisionObj.y,divisionObj.size,divisionObj.size);
+            c.drawImage(spr_ship_division,divisionObj.x,divisionObj.y,mainObj.size,mainObj.size);
         }
 
         if (isbot) {
 
-
             if (astroidArray.length > 0) {
                 if (astroidArray[0].x < bot_obj.x) {
-                    bot_obj.x -= bot_obj.speed;
+                    bot_obj.x -= bot_obj.BtSspd;
                 } else if (astroidArray[0].x > bot_obj.x) {
-                    bot_obj.x += bot_obj.speed;
+                    bot_obj.x += bot_obj.BtSspd;
                 }
                 if ((bot_obj.x == astroidArray[0].x || bot_obj.x == astroidArray[0].x) && bshooting) {
                     bot_shooting();
@@ -185,10 +181,9 @@ function mainLoop(time) {
             for (var e = 0; e < botArray.length; e++) {
                 if (!dead) {
                     c.drawImage(spr_bot_bullet, botArray[e].x, botArray[e].y, botArray[e].size, botArray[e].size);
-                    botArray[e].y -= botArray[e].speed;
+                    botArray[e].y -= 20;
                 }
             }
-
         }
 
         if (bought[7] && shoot) {
@@ -251,8 +246,8 @@ function mainLoop(time) {
             astroidArray = [];
             botArray = [];
             bulletArray = [];
-            bought = [false, false, false, false, false, false, false, false, false, false];
-            bot_obj = {x:mainObj.x, y:540, BtSspd:10};
+            bought = [false, false, false, false, false, false, false, false, false];
+            bot_obj = {x:0, y:540, BtSspd:10};
             isbot = false;
             ghost = false;
             current_colour = [1, 0, 0, 0, 0];
@@ -285,17 +280,16 @@ function mainLoop(time) {
         c.fillStyle = "white";
         c.fillText("£ " + mainObj.PSmny, 10 , 25);
 
-        newShopSlot(40, 70, 120, spr_shop_bullet, 100, "Laser Bullets", ["Rapid Shooting"], 0, laser_bullet);
-        newShopSlot(180, 70, 120, spr_slow_motion, 200, "Slow Motion", ["Slows Astroids"], 3, slow_motion);
-        newShopSlot(320, 70, 120, spr_extra_hearts, 300, "Extra Hearts", ["5+ Health"], 1, steel_body);
-        newShopSlot(460, 70, 120, spr_thrusters, 400, "Thrusters", ["Ship Goes Faster"], 2, upgraded_thruster);
-        newShopSlot(600, 70, 120, spr_ghost, 810, "Ghost Ship", ["Ship comes back after you die", "10 hearts after you die"], 4, ghost_mode);
-        newShopSlot(740, 70, 120, spr_shop_bot, 1210, "Bot", ["A liitle helper"], 5, bot);
+        newShopSlot(40, 70, 120, spr_shop_bullet, 100, "Laser Bullets", 0, laser_bullet);
+        newShopSlot(180, 70, 120, spr_slow_motion, 200, "Slow Motion", 3, slow_motion);
+        newShopSlot(320, 70, 120, spr_extra_hearts, 300, "Extra Hearts", 1, steel_body);
+        newShopSlot(460, 70, 120, spr_thrusters, 400, "Thrusters", 2, upgraded_thruster);
+        newShopSlot(600, 70, 120, spr_ghost, 810, "Ghost Ship", 4, ghost_mode);
+        newShopSlot(740, 70, 120, spr_bot, 1010, "Bot", 5, bot);
 
-        newShopSlot(40, 250, 120, spr_quantum_shift, 1560, "Quantum Shift", ["When you press [Shift]", "and [A] or [D] you shift"], 6, quantum_shift);
-        newShopSlot(180, 250, 120, spr_shop_division, 2100, "Division", ["A liitle helper"], 7, func_division);
-        newShopSlot(320, 250, 120, spr_advance_bot, 2210, "Advanced Bot", ["A liitle helper"], 8, advanced_bot);
-        newShopSlot(460, 250, 120, spr_shop_bullet_2, 3100, "Charged Bullets", ["A liitle helper"], 9, SCbullet);
+        newShopSlot(40, 250, 120, spr_quantum_shift, 1560, "Quantum Shift", 6, quantum_shift);
+        newShopSlot(180, 250, 120, spr_shop_division, 2100, "Division", 7, func_division);
+        newShopSlot(320, 250, 120, spr_shop_bullet_2, 3100, "Charged Bullets", 8, SCbullet);
 
 
         newSkinSlot(764, 550, 96, 39, "Sprites/ship.png", "Red", red_skin, 0);
@@ -440,7 +434,6 @@ function collision() {
                 astroidArray.splice(j, 1);
                 bulletArray.splice(s, 1);
                 mainObj.PSmny += 2;
-                                console.log(Math.floor((Math.random() * 2)))
             }
         }
     }
@@ -479,7 +472,7 @@ function spawning() {
     }
 }
 
-function newShopSlot(x, y, size, sprite, price, name, Description, index, func) {
+function newShopSlot(x, y, size, sprite, price, name, index, func) {
     c.globalAlpha = 0.4;
     c.fillStyle = "#191919";
     c.fillRect(x, y, size, size);
@@ -562,11 +555,12 @@ function steel_body() {
 }
 
 function bot() {
-    isbot = true;
+    isbot = true
+    wait = 75
 }
 
 function bot_shooting() {
-    botArray.push({x:bot_obj.x, y:bot_obj.y, spd:bot_obj.speed, size:bot_obj.size});
+    botArray.push({x:bot_obj.x, y:bot_obj.y, spd:bot_obj.BtSspd, size:bot_obj.size});
 }
 
 function ghost_mode() {
@@ -579,15 +573,6 @@ function func_division() {
 
 function SCbullet() {
     spr_bullet.src = "Sprites/bullet_3.png";
-}
-
-function advanced_bot() {
-    isbot = true
-    bought[5] = true
-    spr_bot.src = spr_advance_bot.src
-    spr_bot_bullet.src = "Sprites/bullet_3.png"
-    bot_obj.speed = 17
-    wait = 75
 }
 
 function compare(a, b) {
